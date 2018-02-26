@@ -1,0 +1,41 @@
+Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+Example:
+Given nums = [2, 7, 11, 15], target = 9,
+
+Because nums[0] + nums[1] = 2 + 7 = 9,
+return [0, 1].
+
+
+解题思路
+在数组中寻找到两个数的和等于target，并返回索引
+
+
+解法1
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int* twoSum(int* nums, int numsSize, int target) {
+    int * ret=NULL;
+    
+    ret= (int*)malloc(2*sizeof(int));
+    
+    for(int i=0; i< numsSize; i++)
+    {
+            for(int j=0; j< numsSize ; j++)
+            {        
+                  if(j !=i && nums[i]+nums[j]==target){
+                      ret[0]=i;
+                      ret[1]=j;
+                      return ret;
+                  }
+            }
+    }
+    return ;
+}
+
+通过 但是这样浪费 并不好。
+刷第一遍先通过再说，第二刷第三刷再求性能~
