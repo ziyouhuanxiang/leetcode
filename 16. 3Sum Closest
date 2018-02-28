@@ -1,0 +1,26 @@
+class Solution:
+    def threeSumClosest(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        nums.sort()
+        closest = nums[0]+nums[1]+nums[2]
+        diff = abs(closest -target)
+        for i in range(len(nums)):
+            left, right = i+1,len(nums)-1
+            while left < right:
+                sums = nums[left]+ nums[right] +nums[i]
+                newdiff = abs(sums -target)
+                if diff > newdiff :
+                    diff = newdiff
+                    closest  = sums;
+                if sums < target :
+                    left+=1
+                else :
+                    right -=1
+                              
+        return closest       
+        
+        这个题目其实比三个数求和等于0那个简单，那个必须把所有的遍历出来然后返回
