@@ -1,0 +1,24 @@
+Write a function to find the longest common prefix string amongst an array of strings.
+char* longestCommonPrefix(char** strs, int strsSize) {
+
+    if(strsSize==0)
+        return "";
+    if(strsSize==1)
+        return strs[0];
+    int flag=0;
+    int j = 0;
+    for(j=0 ; j<strlen(strs[0]); j++){
+       for(int i=1; i< strsSize;i++){
+           if(strs[i-1][j] != strs[i][j])
+           {
+               flag = 1;
+               break;
+           }
+       }
+       if(flag)
+           break;
+    }
+    strs[0][j]='\0';
+    return strs[0];
+    
+}
