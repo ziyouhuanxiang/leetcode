@@ -1,0 +1,43 @@
+The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
+
+P   A   H   N
+A P L S I I G
+Y   I   R
+And then read line by line: "PAHNAPLSIIGYIR"
+Write the code that will take a string and make this conversion given a number of rows:
+
+string convert(string text, int nRows);
+convert("PAYPALISHIRING", 3) should return "PAHNAPLSIIGYIR".
+//应该是一种遍历输出方式 ,所以先找规律，numRows和周期有关
+numRows=3 周期是4
+numRows=4 周期是6
+numRows=5 周期是8 
+为什么是这样的呢 因为numRows是行数每增加一行 一个周期就增加了两个字符
+ 周期确定了挂席 我们就要确定周期内的规律
+ 第一行的规律就不说了 第一行所有显示的是 0+ n*（4+（numRows-3）*2） 即 0+ n*（numRows*2-2）
+ 最后一行的规律是 n*（numRows*2-2）+numRows
+ 
+ 中间行每个都有两个字符，需要找寻内部的关系
+ numRows = 3 周期是4
+ 0       4
+ 1 3     5 7   
+ 2       6
+ 
+ numRows = 4  周期是6 
+ 0   
+ 1  5
+ 2 4
+ 3
+ numRows = 5 周期是8 
+ 0   
+ 1   7
+ 2  6
+ 3 5
+ 4
+ 可以很明显的看出 同一行的字符关系 左边的竖行
+ 第二行 n+1
+ 第三上 n+2
+ 第四行 n+3
+ 斜行
+ 为
+ 
