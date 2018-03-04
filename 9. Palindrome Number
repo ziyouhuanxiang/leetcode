@@ -1,0 +1,19 @@
+bool isPalindrome(int x) {
+    if(x==0) return 0;
+    long k = x;
+    if(x<0)
+        k = -x;
+    long tmp = k;
+    long test = 0;
+    while(tmp!= 0)
+    {
+        test =test*10+ (tmp%10);
+        tmp= tmp/10;
+    }
+
+    if(test== k)
+        return true;
+    else
+         return false;
+}
+负数貌似不算在回文数中
