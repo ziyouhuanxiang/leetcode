@@ -1,0 +1,93 @@
+Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
+
+Example:
+
+Input: "babad"
+
+Output: "bab"
+
+Note: "aba" is also a valid answer.
+ 
+
+Example:
+
+Input: "cbbd"
+
+Output: "bb"
+
+先分析回文字符串怎么查找，对称的结构
+所以可以通过寻找对称中心进行，比如遍历字符串 把遍历的作为对称中心并向两边扩展
+当然对称中心 分为两种情况 aba abba 
+特殊的abbba
+
+
+char* longestPalindrome(char* s) {
+    int max = 0;
+    int len = 0 ;
+    int left = 0;
+    int right  = 0;
+    int max_center = 0;
+
+    for(int i=0 ; s[i] != '\0'; i ++){
+        if(s[i]==s[i+1] ){
+            left = i -1;
+            right = i+2; //abba
+            len = 2;
+            
+        }
+        else{
+            len = 1;
+            left = i -1;
+            right = i+1;  //aba
+        }
+        while(s[right]!= '\0' && left>=0 && s[left]==s[right]){
+                len +=2;
+                left --;
+                right ++;
+        }
+        if(len > max){
+            max = len;
+            max_center = i;
+            len = 0;
+        }
+        
+        if(s[i]==s[i+1] ){
+            
+            len = 1;
+            left = i -1;
+            right = i+1;  //aba         
+            
+           while(s[right]!= '\0' && left>=0 && s[left]==s[right]){
+                len +=2;
+                left --;
+                right ++;
+            }
+            if(len > max){
+                max = len;
+                max_center = i;
+                len = 0;
+            }         
+        }
+    }
+    
+    if(max%2==0){
+        left = max_center - max/2+1;
+        right  = max_center + max/2;
+    }else{
+        left = max_center - (max-1)/2;
+        right  = max_center + (max-1)/2;    
+    }
+    printf("%d",max);
+    char * ret = malloc(sizeof(char)*(max+1));
+    int x=0;
+    for(int i = left; i<=right; i++){
+        ret[x++]= s[i];
+    }
+    ret[x]= '\0';
+    return ret;
+    
+}
+
+
+
+
