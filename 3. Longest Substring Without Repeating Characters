@@ -1,0 +1,69 @@
+
+Given a string, find the length of the longest substring without repeating characters.
+
+Examples:
+
+Given "abcabcbb", the answer is "abc", which the length is 3.
+
+Given "bbbbb", the answer is "b", with the length of 1.
+
+Given "pwwkew", the answer is "wke", with the length of 3. Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
+
+
+
+
+
+int lengthOfLongestSubstring(char* s) {
+    int len = 0;
+    int max= 0;
+    char index[255]; //存储字符的编码数组
+    for(int i=0; i< 255; i++)
+        index[i]=-1;
+    
+    for(int i=0 ; s[i]!= '\0'; ){
+                 
+                if (index[s[i]] == -1){
+                    index[s[i]]= i;
+                    len++;
+                    if(len>max){
+                        max = len;
+                        
+                    }
+                    i++;
+                }
+                else{
+                    int k =  index[s[i]]; //获取到两个相同字符出现重复的位置abca 那么 k=0， 然后再从k+1处寻找最长字串
+                   
+                    for(int j= i; j>= 0 ; j--){
+                        index[s[j]]= -1;
+                    }
+                    i= k+1;  
+                    len = 0;
+                 
+                }
+    }
+    return max;
+    
+}
+
+解体思路是这样的。
+用个hash表存字符出现的第一次的位置，初始化为-1表示没有出现过
+当对应的字符的hash位置不为-1的时候，就说明重复了，这个时候需要跳到重复字符的下一位进行搜索
+
+abcabcbb
+大概的过程是这样遍历的
+hash[a]==-1？ yes hash[a]=0 len=1
+hash[b]==-1？ yes hash[b]=1 len=2
+hash[c]==-1？  yes hash[c]=2 len=3
+hash[a]==-1？   NO 记录这个时候的最长长度max=3 ，hash原来不是-1的全部变为-1 然后跳到a出现的第一次位置的下一位也就是s[b]的位置1
+//注意这里hash[]已经全部是-1了
+hash[b]==-1？ yes hash[b]=1 len=1
+hash[c]==-1？  yes hash[c]=2 len=2
+hash[a]==-1？ yes hash[a]=0 len=3
+hash[b]==-1？ NO  最大长度不大于max max不变，hash[]全部恢复-1  跳到b第一次出现的位置的下一位 也就是s[c]的位置 2
+hash[c]==-1？  yes hash[c]=2 len=1
+hash[a]==-1？ yes hash[a]=0 len=2
+hash[b]==-1？ yes hash[b]=1 len=3
+hash[c]==-1？  NO  最大长度不大于max max不变，hash[]全部恢复-1  跳到c第一次出现的位置的下一位 也就是s[a](第二个a)的位置 
+
+
