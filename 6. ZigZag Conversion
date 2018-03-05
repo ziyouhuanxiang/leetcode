@@ -41,3 +41,49 @@ numRows=5 周期是8
  斜行
  为
  
+ 
+ 
+ 
+ char* convert(char* s, int numRows) {
+    int cycle = numRows*2 - 2;
+    int len = 0;
+    if(numRows==1)
+        return s;
+    while(s[len] !='\0'){
+        len++;
+    }
+        
+    char * tmp  = (char*)malloc(sizeof(char)*(len+1));
+    int i=0;
+
+    for(int j=0; j<numRows; j++){
+        if(j==0 || j==numRows-1){//第一行和最后一行
+            for(int k=j; k<len; k+=cycle){
+                 tmp[i++] = s[k];
+            }
+        }else{
+            for(int k=j;  k<len; k+=cycle){
+                tmp[i++] = s[k];
+                int m = k-j+(cycle-j);
+                if(m>=0 && m < len){
+                    tmp[i++] = s[m];
+                }
+                
+            }        
+        }
+
+    }
+    tmp[i]='\0';
+    int num=0;
+    
+    while(tmp[num]!= '\0'){
+        s[num] = tmp[num];
+        num++;
+    }
+    free(tmp);
+    return s;
+}
+
+
+我自己在做的时候忘记考虑到 numRows=1的情况，结果一直不通过
+ 
