@@ -15,40 +15,52 @@ int myAtoi(char* str) {
    
     while(*pt==' ' || *pt == '\t') pt++;
     
-    if(*pt != '+' || *pt != '-' || *pt == '\0')
-        return 0 ;
+    if(*pt <'0' || *pt>'9'){
+         if((*pt != '+' && *pt != '-' )|| *pt == '\0' )
+             return 0 ;  
+      }
+
+    
     
     int flag = 1;
     //解析符号
     if(*pt=='-'){
         flag = -1;
         pt++;
-        while(*pt==' ' || *pt == '\t')pt++;
+
     }else if(*pt=='+' ){
         flag = 1;
         pt++;
-        while(*pt==' ' || *pt == '\t')pt++;
+        
         
     }else if(*pt >='0' && *pt<='9'){
         
     }else{
         return 0 ;
     }
-    
-    if(!(*pt>='1' &&*pt<='9')){ //如果加号和减号后不是数字说明是非法的
+     
+    if(*pt<'0' ||*pt>'9'){ //如果加号和减号后不是数字说明是非法的 第一位是0 直接返回
         return 0 ;
     }
     
+    //判断数字
+    num=0;
+   
     while(*pt>='0' &&*pt<='9'){
         num= num*10 + ((*pt) -'0'); 
         pt++;
+        if(num*flag <INT_MIN ){
+           return INT_MIN  ; 
+        }
+        if(num*flag>INT_MAX  ){
+           return INT_MAX  ; 
+        }
+
     }
     if(flag==-1){
         num = -num;
     }
-    if(num>INT_MAX  || num <INT_MIN ){
-       return INT_MIN ; 
-    }
+
     return num;
     
 }
