@@ -1,0 +1,54 @@
+
+
+Implement atoi to convert a string to an integer.
+
+Hint: Carefully consider all possible input cases. If you want a challenge, please do not see below and ask yourself what are the possible input cases.
+
+Notes: It is intended for this problem to be specified vaguely (ie, no given input specs). You are responsible to gather all the input requirements up front.
+
+ 
+
+int myAtoi(char* str) {
+    char* pt = str;
+    long num = 0;
+    //去除空格
+   
+    while(*pt==' ' || *pt == '\t') pt++;
+    
+    if(*pt != '+' || *pt != '-' || *pt == '\0')
+        return 0 ;
+    
+    int flag = 1;
+    //解析符号
+    if(*pt=='-'){
+        flag = -1;
+        pt++;
+        while(*pt==' ' || *pt == '\t')pt++;
+    }else if(*pt=='+' ){
+        flag = 1;
+        pt++;
+        while(*pt==' ' || *pt == '\t')pt++;
+        
+    }else if(*pt >='0' && *pt<='9'){
+        
+    }else{
+        return 0 ;
+    }
+    
+    if(!(*pt>='1' &&*pt<='9')){ //如果加号和减号后不是数字说明是非法的
+        return 0 ;
+    }
+    
+    while(*pt>='0' &&*pt<='9'){
+        num= num*10 + ((*pt) -'0'); 
+        pt++;
+    }
+    if(flag==-1){
+        num = -num;
+    }
+    if(num>INT_MAX  || num <INT_MIN ){
+       return INT_MIN ; 
+    }
+    return num;
+    
+}
