@@ -1,0 +1,38 @@
+/**
+ * Return an array of size *returnSize.
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+
+
+int gen(char** ret,int k,int len,char * digits ,char** lett, int index){
+    while(digits[index]=='0' ||digits[index]=='1')
+        index++;
+    if(digits[index+1]== '\0'){
+            ret[k]= (char*)malloc(sizeof(char)*(len+1));
+            ret[k][len]='\0';
+    }
+    for(int i=0; lett[digits[index]-'0'][i]!='\0',i++){
+        char a = lett[digits[index]-'0'][i];
+        k=gen(ret, k+i,digits, lett, index+1);
+        ret[k][i] = a;
+    }
+    return 
+}
+
+
+char** letterCombinations(char* digits, int* returnSize) {
+    char** lett=["", "", "abc","def","ghi","jkl","mno","rqrs","tuv","wxyz"];
+    int count=[0,0,3,3,3,3,3,4,3,4];
+    int len=0;
+    int returnSize=1;
+    for(int i=0; digits[i]!= '\0'; i++){
+        if(digits[i] != '0' && digits[i] !=1){
+            len++;
+            returnSize *= count[digits[i]-'0'];
+        }
+    }
+    
+    
+    
+    return returnSize;
+}
