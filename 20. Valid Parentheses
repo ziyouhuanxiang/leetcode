@@ -1,0 +1,41 @@
+
+Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+
+
+
+bool isValid(char* s) {
+    
+    char* ss=(char*)malloc(sizeof(char)*strlen(s));
+    int top=0;
+    for(int i=0; s[i]!='\0'; i++){
+        if(s[i]=='(' || s[i] == '{' || s[i] == '['){
+            ss[top++]=s[i];
+        }else{
+            if(top==0){
+                return false;
+            }
+            if(ss[top-1]=='(' && s[i]==')'){
+                ss[top--]=0;
+            }else  if(ss[top-1]=='{' && s[i]=='}'){
+                ss[top--]=0;
+            }else  if(ss[top-1]=='[' && s[i]==']'){
+                ss[top--]=0;
+            }else{
+                return false;
+            }
+        }
+    }
+    
+    if(top==0){
+        return true;
+    }else{
+        return false;
+    }
+    
+}
+进行配对
+
+
+
