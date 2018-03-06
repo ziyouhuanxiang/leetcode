@@ -1,0 +1,33 @@
+Implement strStr().
+
+Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+
+Example 1:
+
+Input: haystack = "hello", needle = "ll"
+Output: 2
+Example 2:
+
+Input: haystack = "aaaaa", needle = "bba"
+Output: -1
+
+
+int strStr(char* haystack, char* needle) {
+    int left = 0;
+    if(strcmp("\0",needle)==0) return 0;
+    
+    while(haystack[left]!= '\0'){
+        if(haystack[left]==needle[0]){
+            int i=0;
+            for(; needle[i]!= '\0'; i++){
+                if(haystack[left+i]!=needle[i]){
+                    break;
+                }
+            }
+            if(needle[i]=='\0')
+                return left;
+        }
+        left++;
+    }
+    return -1;
+}
