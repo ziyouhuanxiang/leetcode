@@ -1,0 +1,57 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+    
+struct ListNode* mergeKLists(struct ListNode** lists, int listsSize) {
+    struct ListNode*  head =NULL;
+    struct ListNode*  tmp = NULL;
+    int min_index = -1;
+    int flag = 0;
+    struct ListNode** p = (struct ListNode**)malloc(sizeof(struct ListNode*)*listsSize);
+    for(int i=0; i<listsSize; i++){
+        p[i] = lists[i];
+    }
+    while(flag <listsSize){
+        min_index = -1;
+        flag =0;
+        for(int i=0; i<listsSize; i++ ){
+            if(p[i] != NULL){          
+                if(min_index == -1){
+                    min_index = i;
+                    
+                }
+                if(p[i]->val < p[min_index]->val ){
+                    min_index = i;
+                }
+            }else{
+
+                flag++;
+                
+            }
+        }
+        if(min_index != -1){            
+            if(head ==NULL){
+                tmp = head =  p[min_index];
+                p[min_index] = p[min_index]->next;
+                tmp->next = NULL;  
+
+            }else{
+                tmp->next = p[min_index];
+                p[min_index] = p[min_index]->next;
+                tmp = tmp->next;
+                tmp->next = NULL;    
+            }
+        }
+    }
+    free(p);
+    return head;
+    
+}
+
+
+  flag =0;
+  写成 flag==0了
