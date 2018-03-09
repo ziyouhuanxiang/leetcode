@@ -1,0 +1,65 @@
+
+
+
+int add(char* a, int lena,char* b,int lenb,int flag){
+    if(lena>=0){
+        if(lenb>= 0){
+            int tmp = a[lena]-'0'+ b[lenb]-'0' + flag;
+            a[lena] = '0'+ tmp%2;
+            flag = tmp/2;
+            flag = add(a,lena-1,b,lenb-1,flag);
+        }
+        else{
+            int tmp = a[lena]-'0' + flag;
+            a[lena] =  '0'+ tmp%2;
+            flag = tmp/2;      
+            flag = add(a,lena-1,NULL,-1,flag);
+        }
+    }
+    return flag;
+}
+
+
+char* addBinary(char* a, char* b) {
+    char * retp=NULL;
+    int len = 0;
+    
+    int lena = 0, lenb=0;
+    while(a[lena]!='\0')lena++;
+    while(b[lenb]!='\0')lenb++;
+    if(lenb==0)
+        return a;
+    if(lena==0)
+        return b;
+    
+    
+    int flag = 0;
+    
+    if(lena>=lenb){
+        flag = add(a,lena-1,b,lenb-1,0);
+        len = lena;
+        retp = a;
+    }else{
+        flag = add(b,lenb-1,a,lena-1, 0);
+        len = lenb;
+        retp = b;
+    }
+    if(flag == 0)
+        return retp;
+    else{
+        
+        
+        char *pt =(char *)malloc(sizeof(char)*(len+2)); // 加2是因为要存储多出来的进位1 和 \0
+        pt[0] = '1';
+        for( int i = 0; i<len; i++){
+            pt[i+1] = retp[i];
+            
+        }
+        
+        pt[len+1]='\0';
+          
+        retp = pt;
+    }
+    
+    return retp;
+}
