@@ -1,0 +1,86 @@
+
+Given a linked list, reverse the nodes of a linked list k at a time and return its modified list.
+
+k is a positive integer and is less than or equal to the length of the linked list. If the number of nodes is not a multiple of k then left-out nodes in the end should remain as it is.
+
+You may not alter the values in the nodes, only nodes itself may be changed.
+
+Only constant memory is allowed.
+
+For example,
+Given this linked list: 1->2->3->4->5
+
+For k = 2, you should return: 2->1->4->3->5
+
+For k = 3, you should return: 3->2->1->4->5
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+struct ListNode* reverse(struct ListNode* p1,struct ListNode* p2){
+    if(p1 == NULL){
+        return p2;
+    }
+
+    struct ListNode*  node = reverse(p1->next,p2);
+    if(node!=NULL){
+        node->next  = p1;
+        p1->next = NULL;    
+    }else{
+         p1->next = NULL;    
+         p2 = p1;
+    }
+    return p1;
+}
+
+struct ListNode* reverseKGroup(struct ListNode* head, int k) {
+    struct  ListNode* next_begin,*p1,*p2,*last;
+    struct  ListNode* ret=NULL;
+    last = NULL;
+    if(k==1)
+        return head;
+    p2 = p1 = head;
+    int count = 0;
+    while(p2 !=NULL){
+        if(count!=k-1){
+            p2 = p2->next;
+            count++;
+        }else{
+            next_begin = p2->next;
+            // printf("[%d %d]",p1->val,p2->val);
+             //printf("tmp:%d",tmp->val);
+            p2->next = NULL;
+            
+            p1 = reverse(p1,p2); //反向             
+           
+            if(ret == NULL){//得到链表头
+                 ret = p2;
+            } 
+            if(last!=NULL)
+                last->next=p2;
+            last = p1; //保存翻转后的节点
+
+            
+            p1->next = next_begin;
+            
+            p1  =p1->next;
+            p2 = p1; 
+           
+            count=0;
+        }
+    }
+    
+    if(ret ==NULL)
+        ret = head;
+    return ret;
+}
+
+翻转使用递归实现
+
+
+
