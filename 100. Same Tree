@@ -60,3 +60,7 @@ bool judge(struct TreeNode* p, struct TreeNode* q){
         return false;
     }
 }
+
+bool isSameTree(struct TreeNode* p, struct TreeNode* q) {
+    return judge(p,q);
+}
