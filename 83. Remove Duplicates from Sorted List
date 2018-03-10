@@ -1,0 +1,26 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+struct ListNode* deleteDuplicates(struct ListNode* head) {
+    struct ListNode *pt    = head;
+    if(pt ==NULL)
+        return pt;
+    while(pt->next!= NULL){
+
+        if(pt->val == pt->next->val){
+            pt->next = pt->next->next;
+        }else{
+            pt = pt->next;
+        }        
+    }
+    return head;
+}
+
+
+
+
+26. Remove Duplicates from Sorted Array
