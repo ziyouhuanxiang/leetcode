@@ -1,0 +1,83 @@
+Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
+
+For example, this binary tree [1,2,2,3,4,4,3] is symmetric:
+
+    1
+   / \
+  2   2
+ / \ / \
+3  4 4  3
+But the following [1,2,2,null,3,null,3] is not:
+    1
+   / \
+  2   2
+   \   \
+   3    3
+Note:
+Bonus points if you could solve it both recursively and iteratively.
+
+对称树
+
+【思考】
+如果使用递归，那么递归的根据规则在去生成一个镜像树，，如果两个树完全一样 则对称
+
+
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+bool judge(struct TreeNode* p, struct TreeNode* q){
+    if(p==NULL && q== NULL){
+        return true;
+    }
+    
+    if(p!=NULL && q!=NULL && p->val == q->val){
+        return judge(p->left,q->left) & judge(p->right,q->right);
+    }
+    else{
+        return false;
+    }
+}
+
+
+struct TreeNode*  create(struct TreeNode* root) {
+     struct TreeNode* root2 =NULL;
+    if(root!= NULL){
+        root2= (struct TreeNode*)malloc(sizeof(struct TreeNode));
+        root2->val = root->val;
+        root2->right = create(root->left);
+        root2->left = create(root->right);
+    }
+    return root2;
+    
+}
+/*释放malloc的空间*/
+void freeTree(struct TreeNode*  root){
+    if(root!=NULL){
+        freeTree(root->left);
+        freeTree(root->right);
+        free(root);      
+    }
+
+}
+
+bool isSymmetric(struct TreeNode* root) {
+    if(root==NULL)
+        return true;
+    
+    
+    struct TreeNode* root2 = NULL;
+    root2 = create(root);
+    bool flag = judge(root,root2);
+    freeTree(root2);
+    return flag;
+}
+
+
+1 分配的树空间用过要释放
+2 可以在100题的基础上进行做
