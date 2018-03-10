@@ -1,0 +1,65 @@
+Divide two integers without using multiplication, division and mod operator.
+
+If it is overflow, return MAX_INT.
+
+两个整数相除 不能使用除法操作
+首先想到的就是减法啦 
+so easy
+1 必须考虑到除数和被除数两个都是负数，只有一个数负数的问题 
+int divide(int dividend, int divisor) {
+    int flag = 1;
+    if(divisor == 0)
+        return INT_MAX ;
+    int ret = 0;
+    if(dividend* divisor<0){
+        flag = -1;
+    }
+    long ldividend = abs(dividend);
+    long ldivisor = abs(divisor);
+        
+    
+    while(ldividend >= ldivisor){
+        ldivisor = ldividend -ldivisor;
+        ret++;
+    }
+    return flag*ret;
+}
+但是时间超时了
+
+另一种就是移位啦
+dividend = divisor*1 + dividend *2 +dividend*4 +dividend*8 。。。
+
+int divide(int dividend, int divisor) {
+    int flag = 1;
+
+    if(divisor == 0)
+        return INT_MAX ;
+    long ret = 0;
+    if(dividend* divisor<0){
+        flag = -1;
+    }
+    long long ldividend = abs(dividend);
+    long long ldivisor = abs(divisor);
+     
+    long tmp = 0;
+    while(ldividend >= abs(divisor)){
+        tmp = 0;
+        while(ldividend >= ldivisor){
+            if(tmp ==0)//第一次进入该循环时候
+                tmp =1;
+            else
+               tmp = tmp<1;
+            ldivisor = ldivisor<1; // 因为不能用乘法只能用移位表示 ldivisor*2  
+        } 
+        ldividend = ldividend - (ldivisor>1);//除数减去tmp 个被除数 这里除以2 是因为有最后一个循环后的左移引起的
+        ldivisor = abs(divisor);//重新
+        ret += tmp; 
+    }
+
+    return flag*ret;
+}
+
+结果还是超时  
+
+
+
