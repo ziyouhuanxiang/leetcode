@@ -1,0 +1,49 @@
+Given a binary tree, return the preorder traversal of its nodes' values.
+
+For example:
+Given binary tree [1,null,2,3],
+   1
+    \
+     2
+    /
+   3
+return [1,2,3].
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+/**
+ * Return an array of size *returnSize.
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int count(struct TreeNode* root){
+    if(root == NULL )
+        return 0;
+    return count(root->right) + count(root->left)+1;
+}
+int change(struct TreeNode* root, int* arr, int index){
+    if(root ==NULL)
+        return index;
+    arr[index++]= root->val;
+    int t = change(root->left, arr,index);
+    t =change(root->right, arr, t);
+    return t;
+}
+
+int* preorderTraversal(struct TreeNode* root, int* returnSize) {
+    if(root == NULL)
+        return NULL;
+    *returnSize = count(root);
+
+    int *ret   =NULL;
+    int k = 0;
+   
+    ret = (int*)malloc( sizeof(int)* ( *returnSize ));
+     k = change(root, ret,0);
+    return ret;
+}
