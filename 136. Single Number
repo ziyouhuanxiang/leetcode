@@ -1,0 +1,15 @@
+Given an array of integers, every element appears twice except for one. Find that single one.
+
+Note:
+Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+
+int singleNumber(int* nums, int numsSize) {
+    for(int i=1; i< numsSize; i++){
+        nums[i] = nums[i] ^ nums[i-1];
+    }
+    return nums[numsSize-1];
+}
+
+
+数组中只有一个数是单独的，其他都是成对出现，找出这个单独的数。
+两个相同的数异或等于零
