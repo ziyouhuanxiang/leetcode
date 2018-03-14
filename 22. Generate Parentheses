@@ -1,0 +1,51 @@
+Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+
+For example, given n = 3, a solution set is:
+
+[
+  "((()))",
+  "(()())",
+  "(())()",
+  "()(())",
+  "()()()"
+]
+首先想到的是递归
+找结束条件呢
+1 就是插入了n个左括号了和n个右括号就结束
+2 什么时候插入呢 分两步
+  2.1 如果插入的左括号不是n个 则继续插入
+   2.2 如果插入的右括号少于右括号 而且不到n个 则插入右括号
+
+/**
+ * Return an array of size *returnSize.
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int generate(char** ret, int index, char* tmp,int k, int left, int right,int len){
+    if(left ==0 && right==0){
+        printf("%d",index);
+        ret[index] = (char*)malloc(sizeof(char)*(len+1));
+        strncpy(ret[index], tmp, len);
+        ret[index][len] = '\0';
+        return index+1;
+    }
+    if(left>0){
+        tmp[k]='(';
+        index = generate(ret, index, tmp, k+1, left-1,right,len);
+    }
+    
+    if(right>0 && left < right){
+        tmp[k]=')';
+        index = generate(ret, index, tmp, k+1, left,right-1,len);
+    }    
+    
+    return index;
+}
+
+
+char** generateParenthesis(int n, int* returnSize) {
+    char** ret = (char**)malloc(sizeof(char*)*10000);
+    char* tmp = (char*)malloc(sizeof(char)*(n*2+1));
+    
+    *returnSize = generate(ret, 0, tmp, 0, n,n,n*2);
+    return ret;
+}
