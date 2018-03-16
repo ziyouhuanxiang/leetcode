@@ -1,0 +1,23 @@
+Reverse bits of a given 32 bits unsigned integer.
+
+For example, given input 43261596 (represented in binary as 00000010100101000001111010011100), return 964176192 (represented in binary as 00111001011110000010100101000000).
+
+Follow up:
+If this function is called many times, how would you optimize it?
+
+Related problem: Reverse Integer
+
+uint32_t reverseBits(uint32_t n) {
+    uint32_t ret =0;
+    int i=0;
+    while(i<32){
+        ret= (ret<<1)+ (n&1);
+        n= n >>1;
+        i++;
+    }
+    return ret;
+}
+uint32_t reverseBits(uint32_t n) {
+    printf("%l",((bool)(n&2))*1073741824);
+
+    return    ((bool)(n&1))*2147483648+ ((bool)(n&2))*1073741824 + ((bool)(n&4))*536870912+((bool)(n&8))*268435456+ ((bool)(n&16))*134217728+((bool)(n&32))*67108864+((bool)(n&64))*33554432 + ((bool)(n&128))*16777216 + ((bool)(n&256))*8388608 + ((bool)(n&512))*4194304+ ((bool)(n&1024))*2097152+ ((bool)(n&2048))*1048576+((bool)(n&4096))*524288 +  ((bool)(n&8192))*262144 + ((bool)(n&16384))*131072 +  ((bool)(n&32768))*65536 + ((bool)(n&65536))*32768+ ((bool)(n&131072))*16384 +  ((bool)(n&262144))*8192 +((bool)(n&524288))*4096 +((bool)(n&1048576))*2048 +((bool)(n&2097152))*1024 +((bool)(n&4194304))*512 +((bool)(n&8388608))*256 +((bool)(n&16777216))*128 + ((bool)(n&33554432))*64 +((bool)(n&67108864))*32+((bool)(n&134217728))*16 +((bool)(n&268435456))*8 +((bool)(n&536870912))*4 + ((bool)(n&1073741824))*2 + ((bool)(n&2147483648))*1;
