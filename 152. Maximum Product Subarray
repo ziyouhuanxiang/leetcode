@@ -1,0 +1,27 @@
+Find the contiguous subarray within an array (containing at least one number) which has the largest product.
+
+For example, given the array [2,3,-2,4],
+the contiguous subarray [2,3] has the largest product = 6.
+
+#define MAX(a,b) (a)>(b)?(a):(b)
+#define MIN(a,b) (a)>(b)?(b):(a)
+int maxProduct(int* nums, int numsSize) {
+
+     int min= nums[0];
+     int max = nums[0];
+    int ret_max = nums[0];
+    for(int i=1; i<numsSize; i++){
+        int tmp_max = max;
+        max= MAX(MAX(nums[i]*max, nums[i]),min*nums[i]);
+        min= MIN(MIN(nums[i]*tmp_max, nums[i]),min*nums[i]);
+        ret_max= MAX(max , ret_max);
+    }
+    return ret_max;
+}
+
+如果我们知道第n步的最大值是max 最小值min  --->最小值是由于前面有负数产生的
+那么第n+1步的连续相乘的积的最大值
+max  = a[n+1]*max or a[n+1] or  min*a[n+1]    ----> 前面如果一直是整数，那么第n+1个也是整数那么就等于 a[n+1]*max 
+                                                    如果a[n+1]是个负数 max是正数  则结果就是a[n+1]
+                                                    如果前面是的相乘有min<0 a[n+1]<0 则结果就是 min*a[n+1]
+
