@@ -1,0 +1,55 @@
+Given a string s, find the longest palindromic subsequence's length in s. You may assume that the maximum length of s is 1000.
+
+Example 1:
+Input:
+
+"bbbab"
+Output:
+4
+One possible longest palindromic subsequence is "bbbb".
+Example 2:
+Input:
+
+"cbbd"
+Output:
+2
+One possible longest palindromic subsequence is "bb".
+
+int subseq(char* s,int left,int right){
+    int ret = 0;
+    while(left>=0&&s[right]!='\0'){
+        if(s[left]== s[right]){
+            ret+=2;
+            left--;
+            right++;
+        }else{
+            return ret;
+        }
+    }
+    return ret;
+}
+int longestPalindromeSubseq(char* s) {
+     int len = strlen(s);
+    if(s==NULL || len==0)
+        return 0;
+   
+    int lplen = 1;
+    int max = 1;
+    
+    for(int i=1; i<len; i++){
+        if(s[i-1]==s[i]){
+            lplen = subseq(s,i-2, i+1)+2;
+        }else{
+            lplen = subseq(s,i-1,i+1)+1;
+        }
+        if(max<lplen){
+            max= lplen;
+        }
+    }
+    return max;
+}
+
+
+理解错了题目了 让求的是最长的子序列
+
+
