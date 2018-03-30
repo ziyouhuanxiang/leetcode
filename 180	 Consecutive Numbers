@@ -1,0 +1,50 @@
+编写一个SQL查询，查找至少连续出现三次的所有数字。
+
++----+-----+
+| Id | Num |
++----+-----+
+| 1  |  1  |
+| 2  |  1  |
+| 3  |  1  |
+| 4  |  2  |
+| 5  |  1  |
+| 6  |  2  |
+| 7  |  2  |
++----+-----+
+例如，给定上面的 Logs 表， 1 是唯一连续出现至少三次的数字。
+
++-----------------+
+| ConsecutiveNums |
++-----------------+
+| 1               |
++-----------------+
+# Write your MySQL query statement below
+select distinct g1.Num as ConsecutiveNums 
+from Logs g1, Logs  g2, Logs g3
+where g1.Id+1=g2.Id and g2.Id+1 = g3.Id and g1.Num=g2.Num and g2.Num = g3.Num
+
+
+
+SELECT DISTINCT Num as ConsecutiveNums 
+FROM (
+  SELECT Num, 
+    CASE 
+      WHEN @prev = Num THEN @count := @count + 1
+      WHEN (@prev := Num) IS NOT NULL THEN @count := 1
+    END CNT
+  FROM Logs, (SELECT @prev := NULL) X
+  ORDER BY Id
+) AS A
+WHERE A.CNT >= 3
+
+:= 赋值
+= 相等判断
+@name 变量
+
+　　　　case 列名
+
+　　　　when   条件值1   then  选择项1
+
+　　　　when   条件值2    then  选项2.......
+
+　　　　else     默认值      end
