@@ -1,0 +1,30 @@
+编写一段SQL语句，从Employee表查询获得第 n 高的薪水。
+
++----+--------+
+| Id | Salary |
++----+--------+
+| 1  | 100    |
+| 2  | 200    |
+| 3  | 300    |
++----+--------+
+例如，在上面的Employee表中，n = 2时，第二高的薪水是200。如果没不存在第 n 高的薪水，那么查询应返回null。
+
++------------------------+
+| getNthHighestSalary(2) |
++------------------------+
+| 200                    |
++------------------------+
+
+
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+  declare n1 int;
+  set n1=N-1;
+  RETURN (
+      # Write your MySQL query statement below.
+      select Salary
+      from(select distinct Salary from Employee) t
+      order by Salary desc 
+      limit n1,1
+  );
+END
