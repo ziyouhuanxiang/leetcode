@@ -61,5 +61,31 @@ int divide(int dividend, int divisor) {
 
 结果还是超时  
 
-
+class Solution(object):
+    def divide(self, dividend, divisor):
+        """
+        :type dividend: int
+        :type divisor: int
+        :rtype: int
+        """
+        MAX_INT = 2147483647
+        flag=1 if (dividend>0 and divisor >0 ) or (dividend<0 and divisor <0) else -1
+        
+        dend=abs(dividend)
+        dsor=abs(divisor)
+        if divisor==0 :
+            return MAX_INT
+        ret=0
+        while dend>=dsor :
+            k=0
+            tmp = dsor
+            while dend >= tmp :
+                dend -= tmp
+                ret+= 1<<k
+                tmp <<=1
+                k+=1
+        ret = flag* ret
+        if ret > MAX_INT :
+            ret = MAX_INT
+        return ret
 
