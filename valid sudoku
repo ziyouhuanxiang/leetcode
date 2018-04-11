@@ -1,0 +1,17 @@
+class Solution:
+    def isValidSudoku(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: bool
+        """
+        rowset={}
+        coltset={}
+        blockset={}
+        for i in range(10) :
+            for j in range(10) :
+                if (board[i][j] not in rowset) and board[i][j] != '.': 
+                    rowset[board[i][j]]=1
+                if (board[j][i] not in rowset) and board[j][i] != '.': 
+                    rowset[board[j][i]]=1
+                
+              
