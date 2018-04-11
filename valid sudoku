@@ -1,17 +1,21 @@
 class Solution:
+    def test(self, str1):
+        count=str1.count('.')
+        if count==0 and 9==len(set(str1)):
+            return True
+        if 9-count+1==len(set(str1)):
+            return True
+        return False
     def isValidSudoku(self, board):
         """
         :type board: List[List[str]]
         :rtype: bool
         """
-        rowset={}
-        coltset={}
-        blockset={}
-        for i in range(10) :
-            for j in range(10) :
-                if (board[i][j] not in rowset) and board[i][j] != '.': 
-                    rowset[board[i][j]]=1
-                if (board[j][i] not in rowset) and board[j][i] != '.': 
-                    rowset[board[j][i]]=1
-                
-              
+        for i in range(9):
+            li1=board[i]
+            li2= [board[j][i] for j in range(9) ]
+            li3 = [ board[i/3*3+j/3][i/3*3+j%3] for j in range(9) ]
+            if  not (test(li1) and test(li2) and test(li3)):
+                return False
+        
+        return True
