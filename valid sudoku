@@ -1,3 +1,14 @@
+判断一个数独是否有效，根据：Sudoku Puzzles - The Rules。
+
+数独部分填了数字，空的部分用 '.' 表示。
+
+
+
+一个部分填充是有效的数独。
+
+
+说明:
+一个有效的数独（填了一部分的）不一定是可解的，只要已经填的数字是有效的即可。
 class Solution:
     def test(self, str1):
         count=str1.count('.')
@@ -14,8 +25,15 @@ class Solution:
         for i in range(9):
             li1=board[i]
             li2= [board[j][i] for j in range(9) ]
-            li3 = [ board[i/3*3+j/3][i/3*3+j%3] for j in range(9) ]
-            if  not (test(li1) and test(li2) and test(li3)):
+            li3 = [ board[int(i/3)*3+int(j/3)][int(i%3)*3+j%3] for j in range(9) ]
+            if  not (self.test(li1) and self.test(li2) and self.test(li3)):
                 return False
         
         return True
+        
+    将数独问题进行转化分解
+    一行是个字符串，不能有重复字符串
+    一竖是个字符串，不能有重复字符串
+    一块是个字符串，不能有重复字符串
+    这三个问题，我们现在要做的就是构造这三个字符串，并分别进行判断
+  
