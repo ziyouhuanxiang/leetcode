@@ -4,15 +4,14 @@ class Solution:
         ret=""
         if len(str1)<len(str2):
             str1,str2=str2,str1
-        
         for i in range(len(str1)):
             if i<len(str2):
-                ret+=str(op+(int(str1[i])+int(str2[i]))%10)
-                op=(op+int(str1[i])+int(str2[i]))/10
+                tmp=op+(int(str1[i])+int(str2[i]))
             else:
-                print(str(i))
-                ret+=str( (op+int(str1[i]))%10)
-                op=(op+int(str1[i]))/10
+                tmp = op+int(str1[i])
+            ret+=str( int(tmp)%10)
+            op=int(tmp/10)
+            
         if op !=0:
             ret+=str(op)
         return ret
@@ -20,11 +19,13 @@ class Solution:
     def multiply_ch(self, str1, ch):
         ret = ""
         op = 0
-        for chr in str1:
-            ret+=str((op+int(chr) * int(ch))%10) 
-            op = (op+int(chr) * int(ch))/10
+        for ch1 in str1:
+            tmp = op+int(ch1) * int(ch)
+            ret+=str( (tmp)%10) 
+            op = int(tmp/10)
         if op != 0:
             ret+=str(op)
+       
         return ret
         
     def multiply(self, num1, num2):
@@ -48,6 +49,8 @@ class Solution:
         ret = ret[::-1]
         return ret     
             
-        
+ 主要对问题进行分解 按照乘法
+ 1 按位乘
+ 2 相加
         
         
