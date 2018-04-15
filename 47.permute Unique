@@ -1,0 +1,43 @@
+给定一个可能包含重复数字的序列，返回所有不同的全排列。
+
+示例:
+
+输入: [1,1,2]
+输出:
+[
+  [1,1,2],
+  [1,2,1],
+  [2,1,1]
+]
+
+class Solution:
+    def permuteUnique(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        self.data=[]
+        self.dfs(nums,[])
+        return self.data
+    
+    def dfs(self,nums, tmp):
+        if len(nums)==0:
+            if tmp not in self.data:
+                self.data.append(tmp)
+        
+        for index in range(len(nums)):
+            te=[]
+            if len(nums)-1 == index:
+                te=nums[:index]
+            else :
+                te=nums[:index]+nums[index+1:]
+            self.dfs(te,tmp+[nums[index]])      
+ 
+ 
+ 递归解决有重复数的全排列，分解
+ 则所有的元素 分为两部分，一部分已经放入到结果中a，一部分是未放入到结果中的b
+ 1 第一步将b中选择一个放入a中，重复该步骤直到b为空
+ 2 去重
+ 
+ 存在优化的空间，比如在判断去重的时候其实可以提前使用hashmap对每个结果进行唯一索引
+ 
