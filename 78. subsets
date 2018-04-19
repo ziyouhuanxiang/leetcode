@@ -1,0 +1,16 @@
+class Solution:
+    def __init__(self):
+        self.ret=[[]]
+    
+    def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """    
+        for num in nums:
+            len1=len(self.ret)
+            for i in range(len1):
+                self.ret.append(self.ret[i]+[num])
+        return self.ret
+        
+        一开始用递归做 但是超时，然后更该为循环
